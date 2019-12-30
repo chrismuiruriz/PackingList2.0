@@ -1,0 +1,808 @@
+<template>
+    <div class="page" data-el-page="home">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link">
+                        <i class="f7-icons">house</i>
+                    </a>
+                </div>
+
+                <div class="title">{{appName}}</div>
+
+                <div class="right">
+                    <label class="toggle toggle-theme">
+                        <input type="checkbox">
+                        <span class="toggle-icon"></span>
+                    </label>
+                    &nbsp;
+                </div>
+
+                <div class="subnavbar">
+                    <form data-search-container=".virtual-list-clientitems" data-search-item="li"
+                        data-search-in=".item-title" class="searchbar searchbar-init">
+                        <div class="searchbar-inner">
+                            <div class="searchbar-input-wrap">
+                                <input type="search" placeholder="Search"></input>
+
+                                <i class="searchbar-icon"></i>
+                                <span class="input-clear-button"></span>
+                            </div>
+
+                            <span class="searchbar-disable-button">Cancel</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="fab fab-right-bottom">
+            <a href="#" class="popup-open" href="#" data-popup=".new-client-popup">
+                <i class="icon f7-icons">plus</i>
+            </a>
+        </div>
+
+        <div class="searchbar-backdrop"></div>
+
+        <div class="page-content ptr-content home-ptr-content">
+            <div class="ptr-preloader">
+                <div class="preloader"></div>
+                <div class="ptr-arrow"></div>
+            </div>
+
+            <div class="list inset simple-list searchbar-not-found">
+                <ul>
+                    <li>Nothing found</li>
+                </ul>
+            </div>
+
+            <div class="list inset virtual-list media-list searchbar-found virtual-list-clientitems"></div>
+        </div>
+
+        <!-- New CLient Modal Popup -->
+        <div class="popup popup-push new-client-popup">
+            <div class="view popup-view">
+                <div class="page">
+                    <div class="navbar">
+                        <div class="navbar-bg"></div>
+                        <div class="navbar-inner">
+                            <div class="left">
+                                <a class="link popup-close" href="#">
+                                    <i class="icon icon-back"></i>
+                                    <span class="if-not-md">Back</span>
+                                </a>
+                            </div>
+                            <div class="title">New Client</div>
+                            <div class="right"></div>
+                        </div>
+                    </div>
+
+                    <div class="page-content">
+
+                        <div class="block-title">Add a new client</div>
+                        <div class="list no-hairlines-md">
+                            <form id="add-client-form">
+                                <ul>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Client Name</div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" placeholder="Client Name" id="client-name">
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Client Email</div>
+                                            <div class="item-input-wrap">
+                                                <input type="email" placeholder="Client Email" id="client-email">
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Client Phone Number</div>
+                                            <div class="item-input-wrap">
+                                                <input type="tel" placeholder="Client Phone Number" id="client-phone">
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">MOVE ID</div>
+                                            <div class="item-input-wrap">
+                                                <input type="tel" placeholder="Move ID" id="move-id">
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Job Type</div>
+                                            <div class="item-input-wrap input-dropdown-wrap">
+                                                <select placeholder="Please choose..." id="job-type">
+                                                    <option value="Export">Export</option>
+                                                    <option value="Storage">Storage</option>
+                                                    <option value="Removal">Removal</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Transport Mode</div>
+                                            <div class="item-input-wrap input-dropdown-wrap">
+                                                <select placeholder="Please choose..." id="transport-mode">
+                                                    <option value="Road">Road</option>
+                                                    <option value="Air">Air</option>
+                                                    <option value="Sea">Sea</option>
+                                                    <option value="N/A">N/A</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Packing Address</div>
+                                            <div class="item-input-wrap">
+                                                <textarea placeholder="Enter address" id="packing-address"
+                                                    autocomplete="off_" rows="2"></textarea>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Delivery Address</div>
+                                            <div class="item-input-wrap">
+                                                <textarea placeholder="Enter Address" id="delivery-address"
+                                                    autocomplete="off_" rows="2"></textarea>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+
+                        <div class="block">
+                            <p class="row">
+                                <button class="col button button-outline button-raised popup-close">Cancel</button>
+                                <button class="col button button-fill button-raised" id="add-client-list">Add</button>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Edit Client Modal Popup -->
+        <div class="popup popup-push edit-client-popup">
+            <div class="view popup-view">
+                <div class="page">
+                    <div class="navbar">
+                        <div class="navbar-bg"></div>
+                        <div class="navbar-inner">
+                            <div class="left">
+                                <a class="link popup-close" href="#">
+                                    <i class="icon icon-back"></i>
+                                    <span class="if-not-md">Back</span>
+                                </a>
+                            </div>
+                            <div class="title">Edit Client</div>
+                            <div class="right"></div>
+                        </div>
+                    </div>
+
+                    <div class="page-content">
+
+                        <div class="block-title">Edit client</div>
+                        <div class="list no-hairlines-md">
+                            <form id="edit-client-form">
+                                <input type="hidden" id="client-id-edit">
+                                <input type="hidden" id="client-rev-edit">
+                                <ul>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Client Name</div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" placeholder="Client Name" id="client-name-edit">
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Client Email</div>
+                                            <div class="item-input-wrap">
+                                                <input type="email" placeholder="Client Email" id="client-email-edit">
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Client Phone Number</div>
+                                            <div class="item-input-wrap">
+                                                <input type="tel" placeholder="Client Phone Number"
+                                                    id="client-phone-edit">
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">MOVE ID</div>
+                                            <div class="item-input-wrap">
+                                                <input type="tel" placeholder="Move ID" id="move-id-edit" readonly>
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Job Type</div>
+                                            <div class="item-input-wrap input-dropdown-wrap">
+                                                <select placeholder="Please choose..." id="job-type-edit">
+                                                    <option value="Export">Export</option>
+                                                    <option value="Storage">Storage</option>
+                                                    <option value="Removal">Removal</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Transport Mode</div>
+                                            <div class="item-input-wrap input-dropdown-wrap">
+                                                <select placeholder="Please choose..." id="transport-mode-edit">
+                                                    <option value="Road">Road</option>
+                                                    <option value="Air">Air</option>
+                                                    <option value="Sea">Sea</option>
+                                                    <option value="N/A">N/A</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Packing Address</div>
+                                            <div class="item-input-wrap">
+                                                <textarea placeholder="Enter address" id="packing-address-edit"
+                                                    autocomplete="off_" rows="2"></textarea>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Delivery Address</div>
+                                            <div class="item-input-wrap">
+                                                <textarea placeholder="Enter Address" id="delivery-address-edit"
+                                                    autocomplete="off_" rows="2"></textarea>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+
+                        <div class="block">
+                            <p class="row">
+                                <button class="col button button-outline button-raised popup-close">Cancel</button>
+                                <button class="col button button-fill button-raised" id="edit-client-list">Save
+                                    Changes</button>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</template>
+
+<script>
+    return {
+        data: function () {
+            items = [];
+            return {
+                appName: "Packing List",
+                items: items
+            };
+        },
+        methods: {
+            generateColor: function () {
+                var letters = '0123456789ABCDEF';
+                var color = '';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            },
+            clearEditClientForm: function () {
+
+                var self_ = this;
+                var $$ = Dom7;
+
+                $$("#edit-client-form input").val("");
+                $$("#edit-client-form textarea").val("");
+            },
+            clearAddClientForm: function () {
+
+                var self_ = this;
+                var $$ = Dom7;
+
+                $$("#add-client-form input").val("");
+                $$("#add-client-form textarea").val("");
+            },
+            uploadToMobility: function (selectedClientItemId) {
+                var self_ = this;
+                var $$ = Dom7;
+                self_.$app.preloader.show();
+
+                /* starts here */
+                db.get(selectedClientItemId, function (err, doc) {
+                    if (err) {
+                        self_.$app.preloader.hide();
+                        self_.$app.toast.create({
+                            text: "Error! " + err,
+                            closeTimeout: 2000,
+                        }).open();
+                        return;
+                    }
+
+                    var pdfDoc = doc.pdfDoc_;
+                    if (typeof pdfDoc == 'undefined') {
+                        self_.$app.preloader.hide();
+                        self_.$app.toast.create({
+                            text: 'Error! Please preview the document before uploading!',
+                            closeTimeout: 3000,
+                            position: 'center'
+                        }).open();
+                        return;
+                    }
+
+                    var formData = new FormData();
+                    formData.append('pdf', pdfDoc);
+                    formData.append('data', doc);
+                    formData.append('moveId', doc.moveId_);
+                    formData.append('client', doc.name_);
+                    formData.append('email', doc.email_);
+                    formData.append('api', "chezakamawewe");
+                    //var serverUrl = "http://localhost/nellions/list.php";
+                    var serverUrl = "https://nellions.co.ke/canvas/script/new.php";
+
+                    app.request({
+                        async: true,
+                        crossDomain: true,
+                        url: serverUrl,
+                        method: "POST",
+                        contentType: "multipart/form-data",
+                        data: formData,
+                        error: function (xhr, status) {
+                            self_.$app.preloader.hide();
+                            self_.$app.toast.create({
+                                text: 'Connection Error! ' + xhr.statusText,
+                                closeTimeout: 2000,
+                                position: 'center'
+                            }).open();
+                        },
+                        success: function (data, status, xhr) {
+                            var obj = data.trim();
+                            self_.$app.preloader.hide();
+                            if (obj == "success") {
+                                self_.$app.toast.create({
+                                    text: 'The document has been uploaded successfully',
+                                    closeTimeout: 3500,
+                                    position: 'center'
+                                }).open();
+                            } else {
+                                self_.$app.toast.create({
+                                    text: 'Upload Error!' + data,
+                                    closeTimeout: 3500,
+                                    position: 'center'
+                                }).open();
+                            }
+                        },
+                    });
+
+                });
+                /* ends here */
+            },
+            getClients: function () {
+
+                var self_ = this;
+                self_.$app.preloader.show();
+
+                var data_ = [];
+
+                /* get all docs */
+                db.allDocs({ include_docs: true, descending: true }, function (err, doc) {
+                    if (err) {
+                        self_.$app.ptr.done(".home-ptr-content");
+                    } else {
+                        var rows_ = doc.rows;
+                        for (var i = 0; i < rows_.length; i++) {
+                            data_.push(rows_[i].doc);
+                        }
+
+                        self_.$app.ptr.done(".home-ptr-content");
+                        self_.items = data_;
+                        self_.virtualList.replaceAllItems(data_);
+                        self_.virtualList.update();
+                        app.preloader.hide();
+                    }
+                });
+            }
+        },
+        on: {
+            pageBeforeRemove: function () {
+                var self_ = this;
+                self_.virtualList.destroy();
+                self_.newClientPopup.destroy();
+                self_.editClientPopup.destroy();
+            },
+            pageInit: function () {
+                var self_ = this;
+                var $$ = Dom7;
+
+                /* Scope Variables */
+                var selectedClientItemId;
+                var selectedClientItemName;
+                var selectedClientItemRev;
+
+                /* New Client Popup Popup */
+                self_.newClientPopup = self_.$app.popup.create({
+                    el: '.new-client-popup'
+                });
+
+                /* Edit Client Popup Popup */
+                self_.editClientPopup = self_.$app.popup.create({
+                    el: '.edit-client-popup'
+                });
+
+                /* get cleints on pulled */
+                var $ptrContent = $$('.home-ptr-content');
+                // Add 'refresh' listener on it
+                $ptrContent.on('ptr:refresh', function (e) {
+                    self_.getClients();
+                });
+
+                self_.virtualList = self_.$app.virtualList.create({
+                    el: self_.$el.find('.virtual-list-clientitems'),
+                    items: self_.items,
+                    searchAll: function (query, items) {
+                        var found = [];
+                        for (var i = 0; i < items.length; i++) {
+                            if (items[i].name_.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+                        }
+                        return found;
+                    },
+                    renderItem: function (item) {
+                        var charz = item.name_.charAt(0);
+
+                        var l = '<li>' +
+                            '<a href="/study/' + item._id + '/' + item.name_ + '/" class="item-link item-content client-list-item" data-item-rev="' + item._rev + '" data-item-id="' + item._id + '" data-item-name="' + item.name_ + '">' +
+                            '<div class="item-media"><div class="list-media-item" style="background:#' + self_.generateColor() + '">' + charz + '</div></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + item.name_ + '</div>' +
+                            '<div class="item-after">' +
+                            (item.jobType_) +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">#' + item.moveId_ + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        return l;
+                    },
+                    height: self_.$theme.ios ? 80 : 90,
+                });
+                self_.getClients();
+
+                /* toggle theme */
+                var toggle = self_.$app.toggle.create({
+                    el: '.toggle-theme',
+                    on: {
+                        change: function () {
+                            if ($$('#app').hasClass("theme-dark")) {
+                                $$('#app').removeClass("theme-dark");
+                            } else {
+                                $$('#app').addClass("theme-dark");
+                            }
+                        }
+                    }
+                });
+            
+
+                /* Add client list button clicked */
+                $$("#add-client-list").on("click", function (e) {
+                    e.preventDefault();
+
+                    /* Fields */
+                    var name = $$("#client-name").val();
+                    var email = $$("#client-email").val();
+                    var phone = $$("#client-phone").val();
+                    var moveId = $$("#move-id").val();
+                    var jobType = $$("#job-type").val();
+                    var transportMode = $$("#transport-mode").val();
+                    var packingAddress = $$("#packing-address").val();
+                    var deliveryAddress = $$("#delivery-address").val();
+
+                    if (name == "" || email == "" || phone == "" || moveId == "" || jobType == "" || transportMode == "" || packingAddress == "" || deliveryAddress == "") {
+                        self_.$app.toast.create({
+                            text: "Some fields are missing!",
+                            closeTimeout: 2000,
+                        }).open();
+                        return;
+                    }
+
+                    var clientList = {
+                        name_: name,
+                        email_: email,
+                        phone_: phone,
+                        moveId_: moveId,
+                        jobType_: jobType,
+                        transportMode_: transportMode,
+                        packingAddress_: packingAddress,
+                        deliveryAddress_: deliveryAddress
+                    };
+
+                    self_.$app.dialog.confirm('Are you sure you to add a new item?', null, function () {
+
+                        db.post(clientList, function (err, result) {
+                            if (!err) {
+                                self_.$app.toast.create({
+                                    text: "Created",
+                                    position: "center",
+                                    closeTimeout: 2000,
+                                }).open();
+                                self_.clearAddClientForm();
+                                self_.newClientPopup.close();
+                                self_.getClients();
+                            } else {
+                                self_.$app.toast.create({
+                                    text: "Error! ".err,
+                                    position: "center",
+                                    closeTimeout: 2000,
+                                }).open();
+                            }
+                        });
+
+                    });
+
+                });
+
+
+                /* edit client item */
+                $$("#edit-client-list").on("click", function (e) {
+                    e.preventDefault();
+
+                    /* Fields */
+                    var id = $$("#client-id-edit").val();
+                    var rev = $$("#client-rev-edit").val();
+                    var name = $$("#client-name-edit").val();
+                    var email = $$("#client-email-edit").val();
+                    var phone = $$("#client-phone-edit").val();
+                    var moveId = $$("#move-id-edit").val();
+                    var jobType = $$("#job-type-edit").val();
+                    var transportMode = $$("#transport-mode-edit").val();
+                    var packingAddress = $$("#packing-address-edit").val();
+                    var deliveryAddress = $$("#delivery-address-edit").val();
+
+                    if (id == "" || rev == "" || name == "" || email == "" || phone == "" || moveId == "" || jobType == "" || transportMode == "" || packingAddress == "" || deliveryAddress == "") {
+                        self_.$app.toast.create({
+                            text: "Some fields are missing!",
+                            closeTimeout: 2000,
+                        }).open();
+                        return;
+                    }
+
+                    /* starts here */
+                    db.get(id, function (err, doc) {
+                        if (err) {
+                            self_.$app.toast.create({
+                                text: "Error! " + err,
+                                closeTimeout: 2000,
+                            }).open();
+                            return;
+                        }
+
+                        var clientList = {
+                            _id: doc._id,
+                            _rev: doc._rev,
+                            name_: name,
+                            email_: email,
+                            phone_: phone,
+                            moveId_: moveId,
+                            jobType_: jobType,
+                            transportMode_: transportMode,
+                            packingAddress_: packingAddress,
+                            deliveryAddress_: deliveryAddress,
+                            members_: doc.members_,
+                            packingListItems_: doc.packingListItems_,
+                            packingListItemCount_: doc.packingListItemCount_,
+                            confirmers_: doc.confirmers_,
+                            pdfDoc_: doc.pdfDoc_
+                        };
+
+                        db.put(clientList, function (err, response) {
+                            if (err) {
+                                self_.$app.toast.create({
+                                    text: "Error! " + err,
+                                    position: "center",
+                                    closeTimeout: 3000,
+                                }).open();
+                            } else {
+                                self_.$app.toast.create({
+                                    text: "Updated",
+                                    position: "center",
+                                    closeTimeout: 2000,
+                                }).open();
+                                self_.clearEditClientForm();
+                                self_.editClientPopup.close();
+                                self_.getClients();
+                            }
+                        });
+                    });
+                    /* ends here */
+                });
+
+                /* action sheet for client list item  */
+                var clientListItemActionSheet = self_.$app.actions.create({
+                    buttons: [
+                        {
+                            text: 'Actions',
+                            label: true
+                        },
+                        {
+                            text: 'Team',
+                            onClick: function () {
+                                clientListItemActionSheet.close();
+                                mainView.router.navigate('/crew/' + selectedClientItemId + '/' + selectedClientItemRev + '');
+                            }
+                        },
+                        {
+                            text: 'Packing List',
+                            onClick: function () {
+                                clientListItemActionSheet.close();
+                                mainView.router.navigate('/list/' + selectedClientItemId + '/' + selectedClientItemRev + '');
+                            }
+                        },
+                        {
+                            text: 'Edit List',
+                            onClick: function () {
+                                clientListItemActionSheet.close();
+                                db.get(selectedClientItemId, (err, results) => {
+                                    if (!err) {
+                                        $$("#client-id-edit").val(results._id);
+                                        $$("#client-rev-edit").val(results._rev);
+                                        $$("#client-name-edit").val(results.name_);
+                                        $$("#client-email-edit").val(results.email_);
+                                        $$("#client-phone-edit").val(results.phone_);
+                                        $$("#move-id-edit").val(results.moveId_);
+                                        $$("#packing-address-edit").val(results.packingAddress_);
+                                        $$("#delivery-address-edit").val(results.deliveryAddress_);
+
+                                        $("#job-type-edit").val(results.jobType_);
+                                        $("#transport-mode-edit").val(results.transportMode_);
+
+                                        self_.editClientPopup.open();
+
+                                    } else {
+                                        self_.$app.toast.create({
+                                            text: "Item Not Found!",
+                                            position: "center",
+                                            closeTimeout: 1500,
+                                        }).open();
+                                    }
+                                });
+                            }
+                        },
+                        {
+                            text: 'Remove List',
+                            onClick: function () {
+                                clientListItemActionSheet.close();
+                                self_.$app.dialog.confirm('Are you sure you to remove this item?', null, function () {
+                                    db.remove(selectedClientItemId, selectedClientItemRev, function () {
+                                        app.toast.create({
+                                            text: "Removed",
+                                            position: "center",
+                                            closeTimeout: 2000,
+                                        }).open();
+                                        self_.getClients();
+                                    });
+                                });
+
+                            }
+                        },
+                        {
+                            text: 'Upload to Mobility',
+                            onClick: function () {
+                                clientListItemActionSheet.close();
+                                self_.$app.dialog.confirm('Are you sure you to upload this item to mobility', null, function () {
+                                    self_.uploadToMobility(selectedClientItemId);
+                                });
+                            }
+                        },
+                        {
+                            text: 'Cancel',
+                            color: 'red',
+                            onClick: function () {
+                                clientListItemActionSheet.close();
+                            }
+                        }
+                    ]
+                });
+
+                $$('[data-el-page="home"]').on('click', '.client-list-item', function (e) {
+                    e.preventDefault();
+                    var clientItemId = $$(this).attr("data-item-id");
+                    var clientItemName = $$(this).attr("data-item-name");
+                    var clientItemRev = $$(this).attr("data-item-rev");
+
+                    selectedClientItemId = clientItemId;
+                    selectedClientItemName = clientItemName;
+                    selectedClientItemRev = clientItemRev;
+
+                    clientListItemActionSheet.open();
+                });
+            }
+        }
+    }
+</script>

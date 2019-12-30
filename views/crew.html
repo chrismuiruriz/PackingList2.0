@@ -1,0 +1,341 @@
+<template>
+    <div class="page" data-el-page="crew">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span class="if-not-md">Back</span>
+                    </a>
+                </div>
+
+                <div class="title">{{appName}}</div>
+
+                <div class="right">
+                    <label class="toggle toggle-init toggle-theme">
+                        <input type="checkbox">
+                        <span class="toggle-icon"></span>
+                    </label>
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+
+        <div class="fab fab-right-bottom">
+            <a href="#" class="popup-open" href="#" data-popup=".new-crew-popup">
+                <i class="icon f7-icons">plus</i>
+            </a>
+        </div>
+
+        <div class="searchbar-backdrop"></div>
+
+        <div class="page-content crew-page">
+            <div class="list inset">
+                <ul id="crew-list">
+                </ul>
+            </div>
+        </div>
+
+        <!-- New Crew Modal Popup -->
+        <div class="popup popup-push new-crew-popup">
+            <div class="view popup-view">
+                <div class="page">
+                    <div class="navbar">
+                        <div class="navbar-bg"></div>
+                        <div class="navbar-inner">
+                            <div class="left">
+                                <a class="link popup-close" href="#">
+                                    <i class="icon icon-back"></i>
+                                    <span class="if-not-md">Back</span>
+                                </a>
+                            </div>
+                            <div class="title">New Member</div>
+                            <div class="right"></div>
+                        </div>
+                    </div>
+
+                    <div class="page-content">
+
+                        <div class="block-title">Add a new member</div>
+                        <div class="list no-hairlines-md">
+                            <form id="add-crew-form">
+                                <ul>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Name</div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" placeholder="Full Name" id="crew-name-input">
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Role</div>
+                                            <div class="item-input-wrap input-dropdown-wrap">
+                                                <select placeholder="Please choose..." id="crew-role-input">
+                                                    <option value="Crew">Crew</option>
+                                                    <option value="Captain">Captain</option>
+                                                    <option value="Driver">Driver</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+
+                        <div class="block">
+                            <p class="row">
+                                <button class="col button button-outline button-raised popup-close">Cancel</button>
+                                <button class="col button button-fill button-raised" id="add-crew-list">Add</button>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</template>
+
+<script>
+    return {
+        data: function () {
+            items = [];
+            return {
+                appName: "Crew",
+                clientId: this.$route.params.id,
+                clientRev: this.$route.params.rev
+            };
+        },
+        methods: {
+            clearNewCrewForm: function () {
+                var self = this;
+                var $$ = Dom7;
+                $$("#add-crew-form input").val("");
+            },
+            deleteCrewListItem: function (index, itemId) {
+                var self = this;
+                var $$ = Dom7;
+
+                db.get(self.clientId, function (err, doc) {
+                    if (err) {
+                        self.$app.toast.create({
+                            text: "Error! " + err,
+                            closeTimeout: 2000,
+                        }).open();
+                        return;
+                    }
+
+                    var __members = [];
+
+                    doc.members_.splice(index, 1);
+                    __members = doc.members_;
+
+                    var clientList = {
+                        _id: self.clientId,
+                        _rev: doc._rev,
+                        name_: doc.name_,
+                        email_: doc.email_,
+                        phone_: doc.phone_,
+                        moveId_: doc.moveId_,
+                        jobType_: doc.jobType_,
+                        transportMode_: doc.transportMode_,
+                        packingAddress_: doc.packingAddress_,
+                        deliveryAddress_: doc.deliveryAddress_,
+                        members_: __members,
+                        packingListItems_: doc.packingListItems_,
+                        packingListItemCount_: doc.packingListItemCount_,
+                        confirmers_: doc.confirmers_,
+                        pdfDoc_: doc.pdfDoc_
+                    };
+
+                    db.put(clientList, function (err, response) {
+                        if (err) {
+                            self.$app.toast.create({
+                                text: "Error! " + err,
+                                position: "center",
+                                closeTimeout: 1500,
+                            }).open();
+                        } else {
+                            self.$app.toast.create({
+                                text: "Removed",
+                                position: "center",
+                                closeTimeout: 1500,
+                            }).open();
+                            self.getClientItems();
+                        }
+                    });
+                });
+
+            },
+            getClientItems: function () {
+                var self = this;
+                var $$ = Dom7;
+                db.get(this.clientId, (err, results) => {
+                    if (!err) {
+                        var members = results.members_;
+                        if (typeof members != 'undefined') {
+                            $$("#crew-list").empty();
+                            var txt = "";
+                            for (var i = 0; i < members.length; i++) {
+                                var listItem = "<li>";
+                                listItem += '<li class="swipeout" data-crew-list-index="' + i + '" data-crew-list-item-id="' + members[i].crewId + '">';
+                                listItem += '<div class="item-content swipeout-content">';
+                                listItem += '<div class="item-media"><i class="icon icon-f7"></i></div>';
+                                listItem += '<div class="item-inner">';
+                                listItem += '<div class="item-title">';
+                                listItem += '<div class="item-header">' + members[i].crewRole + '</div>';
+                                listItem += members[i].crewName;
+                                listItem += '</div>';
+                                listItem += '<div class="item-after">Swipe to Del</div>';
+                                listItem += '</div>';
+                                listItem += '</div>';
+                                listItem += '<div class="swipeout-actions-right">';
+                                listItem += '<a href="#" class="color-red delete-crew-item" data-crew-list-index="' + i + '" data-crew-list-item-id="' + members[i].crewId + '">Delete</a>';
+                                listItem += '</div>';
+                                listItem += '</li>';
+                                txt += listItem;
+                            }
+
+                            $$("#crew-list").append(txt);
+
+                        } else {
+                            console.log("Nothing");
+                        }
+
+                    } else {
+                        self.$app.toast.create({
+                            text: "Item Not Found!",
+                            position: "center",
+                            closeTimeout: 1500,
+                        }).open();
+                    }
+                });
+
+            }
+        },
+        on: {
+            pageBeforeRemove: function () {
+                var self = this;
+                self.newCrewPopup.destroy();
+            },
+            pageInit: function () {
+                var self = this;
+                var $$ = Dom7;
+
+                /* New Crew Popup Popup close */
+                self.newCrewPopup = self.$app.popup.create({
+                    el: '.new-crew-popup'
+                });
+
+                /* toggle theme */
+                $$(".toggle-theme").on('toggle:change', function () {
+                    if ($$("body").hasClass("theme-dark")) {
+                        $$("body").removeClass("theme-dark");
+                    } else {
+                        $$("body").addClass("theme-dark");
+                    }
+                });
+
+                /* get client items */
+                self.getClientItems();
+
+                /* form submitted */
+                $$("#add-crew-list").on("click", function (e) {
+                    e.preventDefault();
+
+                    var name = $$("#crew-name-input").val();
+                    var role = $$("#crew-role-input").val();
+
+                    var newCrewMember = {
+                        crewId: new Date().toISOString(),
+                        crewName: name,
+                        crewRole: role
+                    };
+
+                    if (name == "" || role == "") {
+                        self.$app.toast.create({
+                            text: "Some fields are missing!",
+                            closeTimeout: 2000,
+                        }).open();
+                        return;
+                    }
+
+                    db.get(self.clientId, function (err, doc) {
+                        if (err) {
+                            self.$app.toast.create({
+                                text: "Error! " + err,
+                                closeTimeout: 2000,
+                            }).open();
+                            return;
+                        }
+
+                        var __members = [];
+
+                        if (doc.hasOwnProperty('members_')) {
+                            doc.members_.push(newCrewMember);
+                            __members = doc.members_;
+                        } else {
+                            __members.push(newCrewMember);
+                        }
+
+                        var clientList = {
+                            _id: self.clientId,
+                            _rev: doc._rev,
+                            name_: doc.name_,
+                            email_: doc.email_,
+                            phone_: doc.phone_,
+                            moveId_: doc.moveId_,
+                            jobType_: doc.jobType_,
+                            transportMode_: doc.transportMode_,
+                            packingAddress_: doc.packingAddress_,
+                            deliveryAddress_: doc.deliveryAddress_,
+                            members_: __members,
+                            packingListItems_: doc.packingListItems_,
+                            packingListItemCount_: doc.packingListItemCount_,
+                            confirmers_: doc.confirmers_,
+                            pdfDoc_: doc.pdfDoc_
+                        };
+
+                        db.put(clientList, function (err, response) {
+                            if (err) {
+                                self.$app.toast.create({
+                                    text: "Error! " + err,
+                                    position: "center",
+                                    closeTimeout: 1500,
+                                }).open();
+                            } else {
+                                self.$app.toast.create({
+                                    text: "Added",
+                                    position: "center",
+                                    closeTimeout: 1500,
+                                }).open();
+                                self.clearNewCrewForm();
+                                self.getClientItems();
+                                self.newCrewPopup.close();
+  0                          }
+                        });
+                    });
+                });
+
+                /* Swipe del call callback */
+                $$('[data-el-page="crew"]').on('click', '.delete-crew-item', function () {
+                    var crewItemIndex = $$(this).attr("data-crew-list-index");
+                    var crewItemId = $$(this).attr("data-crew-list-item-id");
+                    self.deleteCrewListItem(crewItemIndex, crewItemId);
+                });
+            }
+        }
+    }
+</script>

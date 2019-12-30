@@ -1,0 +1,1148 @@
+<template>
+    <div class="page" data-el-page="list">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="/home/" class="link">
+                        <i class="icon icon-back"></i>
+                        <span class="if-not-md">Back</span>
+                    </a>
+                </div>
+
+                <div class="title">{{appName}}</div>
+
+                <div class="subnavbar">
+                    <form data-search-container=".virtual-list-packinglist" data-search-item="li"
+                        data-search-in=".item-title" class="searchbar searchbar-init">
+                        <div class="searchbar-inner">
+                            <div class="searchbar-input-wrap">
+                                <input type="search" placeholder="Search"></input>
+
+                                <i class="searchbar-icon"></i>
+                                <span class="input-clear-button"></span>
+                            </div>
+
+                            <span class="searchbar-disable-button">Cancel</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="toolbar toolbar-bottom">
+            <div class="toolbar-inner">
+                <a class="link" id="goto-client-signature">Signature</a>
+                <a class="link" id="goto-preview">Preview</a>
+            </div>
+        </div>
+
+        <div class="fab fab-right-bottom">
+            <a class="popup-open" href="#" data-popup=".new-packinglist-popup">
+                <i class="icon f7-icons">plus</i>
+            </a>
+        </div>
+
+        <div class="searchbar-backdrop"></div>
+
+        <div class="page-content ptr-content packlinglist-page">
+            <div class="ptr-preloader">
+                <div class="preloader"></div>
+                <div class="ptr-arrow"></div>
+            </div>
+
+            <div class="list inset simple-list searchbar-not-found">
+                <ul>
+                    <li>Nothing found</li>
+                </ul>
+            </div>
+
+            <div class="list inset virtual-list media-list searchbar-found virtual-list-packinglist"></div>
+        </div>
+
+        <!-- New List Item Modal Popup -->
+        <div class="popup popup-push new-packinglist-popup">
+            <div class="view popup-view">
+                <div class="page">
+                    <div class="navbar">
+                        <div class="navbar-bg"></div>
+                        <div class="navbar-inner">
+                            <div class="left">
+                                <a class="link popup-close" href="#">
+                                    <i class="icon icon-back"></i>
+                                    <span class="if-not-md">Back</span>
+                                </a>
+                            </div>
+                            <div class="title">New Item</div>
+                            <div class="right"></div>
+                        </div>
+                    </div>
+
+                    <div class="page-content">
+
+                        <div class="block-title">Add a new item</div>
+                        <div class="list no-hairlines-md">
+                            <form id="add-packinglist-item-form">
+                                <ul>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Item Number</div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" placeholder="Item Number"
+                                                    id="packinglist-item-number-input" readonly>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Description</div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" placeholder="Enter Description"
+                                                    id="packinglist-item-description-input">
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Conditions</div>
+                                            <div class="item-input-wrap input-dropdown-wrap">
+                                                <select placeholder="Please choose..."
+                                                    id="packinglist-item-condition-input">
+                                                    <option value="Normal">Normal</option>
+                                                    <option value="Broken">Broken</option>
+                                                    <option value="Chipped">Chipped</option>
+                                                    <option value="Cracked">Cracked</option>
+                                                    <option value="Dented">Dented</option>
+                                                    <option value="Dirty">Dirty</option>
+                                                    <option value="Moldy">Moldy</option>
+                                                    <option value="Rusted">Rusted</option>
+                                                    <option value="Torn">Torn</option>
+                                                    <option value="Unknown">Unknown</option>
+                                                    <option value="Wobbling">Wobbling</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Packed By</div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" placeholder="Type..."
+                                                    id="packinglist-item-packer-input">
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+
+                        <div class="block">
+                            <p class="row">
+                                <button class="col button button-outline button-raised popup-close">Cancel</button>
+                                <button class="col button button-fill button-raised add-packinglist-item"
+                                    id="add-packinglist-item">Add</button>
+                                <button class="col button button-fill button-raised add-packinglist-item plus-new"
+                                    id="add-packinglist-item-new">Add + Next</button>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Edit List Item Modal Popup -->
+        <div class="popup popup-push edit-packinglist-popup">
+            <div class="view popup-view">
+                <div class="page">
+                    <div class="navbar">
+                        <div class="navbar-bg"></div>
+                        <div class="navbar-inner">
+                            <div class="left">
+                                <a class="link popup-close" href="#">
+                                    <i class="icon icon-back"></i>
+                                    <span class="if-not-md">Back</span>
+                                </a>
+                            </div>
+                            <div class="title">Edit Item</div>
+                            <div class="right"></div>
+                        </div>
+                    </div>
+
+                    <div class="page-content">
+
+                        <div class="block-title">Edit list item</div>
+                        <div class="list no-hairlines-md">
+                            <form id="edit-packinglist-item-form">
+                                <input type="hidden" id="packinglist-item-id-input-edit">
+                                <input type="hidden" id="packinglist-item-index-input-edit">
+                                <ul>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Item Number</div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" placeholder="Item Number"
+                                                    id="packinglist-item-number-input-edit" readonly>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Description</div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" placeholder="Enter Description"
+                                                    id="packinglist-item-description-input-edit">
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Conditions</div>
+                                            <div class="item-input-wrap input-dropdown-wrap">
+                                                <select placeholder="Please choose..."
+                                                    id="packinglist-item-condition-input-edit">
+                                                    <option value="Normal">Normal</option>
+                                                    <option value="Broken">Broken</option>
+                                                    <option value="Chipped">Chipped</option>
+                                                    <option value="Cracked">Cracked</option>
+                                                    <option value="Dented">Dented</option>
+                                                    <option value="Dirty">Dirty</option>
+                                                    <option value="Moldy">Moldy</option>
+                                                    <option value="Rusted">Rusted</option>
+                                                    <option value="Torn">Torn</option>
+                                                    <option value="Unknown">Unknown</option>
+                                                    <option value="Wobbling">Wobbling</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-media">
+                                            <i class="icon demo-list-icon"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Packed By</div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" placeholder="Type..."
+                                                    id="packinglist-item-packer-input-edit">
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+
+                        <div class="block">
+                            <p class="row">
+                                <button class="col button button-outline button-raised popup-close">Cancel</button>
+                                <button class="col button button-fill button-raised edit-packinglist-item"
+                                    id="edit-packinglist-item">Save Changes</button>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" id="base64logo"
+            value="iVBORw0KGgoAAAANSUhEUgAAAH8AAAAhCAMAAADH54SmAAAAA3NCSVQICAjb4U/gAAAAh1BMVEX///+mrLBdYWhxHXamrLBdYWhxHXamrLBdYWhxHXamrLBdYWhxHXamrLBdYWhxHXamrLBdYWhxHXamrLBdYWhxHXamrLBdYWhxHXamrLBdYWhxHXamrLBdYWhxHXamrLBdYWhxHXamrLBdYWhxHXamrLBdYWhxHXamrLBdYWhxHXamrLBxHXYpXPwRAAAALXRSTlMAERERIiIiMzMzREREVVVVZmZmd3d3iIiImZmZqqqqu7u7zMzM3d3d7u7u//9yb0iAAAAACXBIWXMAABcRAAAXEQHKJvM/AAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABZ0RVh0Q3JlYXRpb24gVGltZQAwNC8yNi8xOdX+RioAAAQuSURBVFiFvZaBdps6DIYdiCmMFAoxxYGQQkJKBn7/55sk20Aou3fJdqrTw8E28if9kp0yZmxXtr1SqmuygH27uRLZ1tr4+Z089wmneE5Ha7w/d84aDDduMxyUSu0exkvVlbLs5gH0f76LVAoCSJWSoCPG/jC+13rfqZA+wu+Ir0C0jsJ4yOJRMW8K4AERga8C4kMFPJk9iHe7SbDA4pc5uOmpbU/Z2BUxDBsZjPyU+CUMZEoN6GZN1zVydAhk07alzQpWwV8P07nUman+oomz/i4uz7bKyTX8zPJN/cdSajW8xp4sCnlcbcC/UfPz3ur5BX5qCwzAncrUrPAV3CX3feROrd17M5XJv1fzs6bXynvxKfI0pdhcOmOqL7MTDuNVfkdfyM5ISfGXKd0x8A06lrtdLFtsHHXHp80X5cdsWnxpCEjhBEy3fLvGR4cOuG6rK9DqQCm5TkenC+yVKTPvW5tsP1ZtLr9kBpjR7ida0Hp85UujOwFblBhFYZqsn11qs+56fL4NRzNOrfN+Y2bknC8pnK5E60mIr/zGCETD3haF2cxLXfvuFGPmJeXyMQzvUwXwYGyHt3W+VHPbrfBRb52eznzBn9qxB6EDkv88DMMPU4GS2v91OPw+f9VbW+M3/82H4z9GYCt9Bf71rupTRRb8dHFAvvJPylygrm64JR87IzvRKe5m/GE/5+9/xw9mbsxd448NGys64vd8z9432TjP2A35N3sI0N7HhpDz7aTehXRzd1iqr3yMsA/MPZnO+NgYbqBO+h52dXeibQey44x/sP0w8V39QnF3TYO7r98/dFM1pDDeAyNfkv499r7M6Ho6WbG1vU7889gOIx8Liy/2Ntd9sMJf/JCOfI/46XR6et2m25vh314s9GU8fjM+nBx6MSe4T9k6f/zB0b83U51T6r/UhqeX2eY8WLuaADbnj1EJL45je1vttIeXylLGppVpGT+CNXjG9gtp/5MdJ2Fal36XgX9qljfXYbLbO1x7m9fr2d5+32Avt2FuV4jn4xvxkO/hLoDh9vb/Pv/WXg6TBtf908nzvwlhfzgej+9v2+UC/2QsqcZh4czWRCHwWVUJfVksoskd9vfmXyJWVYyLiEWMh/CMABrBkLGaY2B5yC4sFBz4ofCZIwT91WHoOCIBH5gMxbOxRKLy85pdeB5VXISVc4lEEuX+T1irPh3IPC+KxC94zQu/gmcdcsYTERYOzPlJHtX+Bdyf5SdRnePezM8jUTPgszAvfFZjaEKAADAvkjoveJFETESwwKsi93NW8AtjEC58m9TPNocIkxo2uPhFxC7C8KMigvzDgn/mWn/I3Mf8/Qvk7ycigdwx/xDyR74vkif5vuNA+aD+IQAdeIsYToSQJgjAI/wCZn0ROvjkzEkSR4QhS3yoPyjCOSwnz+LXjVeV+Bf7/ALCddhs6NiPwgAAAABJRU5ErkJggg==" />
+
+    </div>
+</template>
+
+<script>
+    return {
+        data: function () {
+            items = [];
+            packers = [];
+            clientData = [];
+            return {
+                packinglistItemCount: 0,
+                appName: "Packing List",
+                clientId: this.$route.params.id,
+                clientRev: this.$route.params.rev,
+                packers: packers,
+                items: items,
+                clientData: clientData
+            };
+        },
+        methods: {
+            readFile: function (fileEntry, filename) {
+                var self = this;
+                fileEntry.file(function (file) {
+                    var reader = new FileReader();
+                    reader.onloadend = function () {
+                        self.$app.preloader.hide();
+                        var folderpath = cordova.file.externalRootDirectory;
+                        var fileUrl = folderpath + "" + filename;
+                        window.open(fileUrl, "_system");
+                    };
+                    reader.readAsText(file);
+                }, function (err) {
+                    alert(err);
+                });
+            },
+            b64toBlob: function (b64Data, contentType, sliceSize) {
+                contentType = contentType || '';
+                sliceSize = sliceSize || 512;
+
+                var byteCharacters = atob(b64Data);
+                var byteArrays = [];
+
+                for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                    var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+                    var byteNumbers = new Array(slice.length);
+                    for (var i = 0; i < slice.length; i++) {
+                        byteNumbers[i] = slice.charCodeAt(i);
+                    }
+
+                    var byteArray = new Uint8Array(byteNumbers);
+
+                    byteArrays.push(byteArray);
+                }
+
+                var blob = new Blob(byteArrays, { type: contentType });
+                return blob;
+            },
+            savebase64AsPDF: function (folderpath, filename, content, contentType) {
+                var self = this;
+                // Convert the base64 string in a Blob
+                var DataBlob = self.b64toBlob(content, contentType);
+                self.$app.preloader.show('Generating Preview...');
+
+                window.resolveLocalFileSystemURL(folderpath, function (dir) {
+                    dir.getFile(filename, { create: true }, function (file) {
+                        file.createWriter(function (fileWriter) {
+                            fileWriter.onwriteend = function () {
+                                self.readFile(file, filename);
+                            };
+                            fileWriter.write(DataBlob);
+                        }, function () {
+                            self.$app.preloader.hide();
+                            alert('Unable to save file in path ' + folderpath);
+                        });
+                    });
+                });
+            },
+            getCurrentDate: function () {
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = today.getFullYear();
+
+                today = mm + '/' + dd + '/' + yyyy;
+                return today;
+            },
+            listTableHeadRows: function () {
+                return [
+                    {
+                        number: "NO.",
+                        description: "DESCRIPTION",
+                        packed_by: "PACKED BY",
+                        condition: "CONDITION AT ORIGIN",
+                        condition_destination: "CONDITION AT DESTINATION"
+                    }
+                ];
+            },
+            listTableBodyRows: function () {
+                var self = this;
+                var $$ = Dom7;
+                let body = [];
+                var rowItems = self.items;
+                for (var j = 0; j < rowItems.length; j++) {
+                    body.push({
+                        number: rowItems[j].packingListNumber.toUpperCase(),
+                        description: rowItems[j].packingListItemDescription.toUpperCase(),
+                        packed_by: rowItems[j].packingListItemPacker.toUpperCase(),
+                        condition: rowItems[j].packingListItemCondition.toUpperCase(),
+                        condition_destination: ""
+                    });
+                }
+                return body;
+            },
+            listTableGeneratePDF: function () {
+                var self = this;
+                var $$ = Dom7;
+
+                if (self.items.length <= 0) {
+                    self.$app.toast.create({
+                        text: "Action not allowed!",
+                        position: "center",
+                        closeTimeout: 2000,
+                    }).open();
+                    return;
+                }
+
+                var base64Logo = $$("#base64logo").val(); /* Nellions Logo in Base64 */
+
+                var tableTitleRows = [];
+                var results = self.clientData;
+                var tableMoveId = results.moveId_;
+                var tableFooterContent = "© Nellions Moving And Relocations | move@nellions.co.ke | +254700000002 | +25478000001 | (20) 2211059 | P.O BOX 28355-00100, Nairobi, Kenya";
+                tableTitleRows.push({
+                    col_left: ("CLIENT'S NAME: " + results.name_).toUpperCase(),
+                    col_right: "DATE: " + self.getCurrentDate()
+                });
+                tableTitleRows.push({
+                    col_left: ("PACKING ADDRESS: " + results.packingAddress_).toUpperCase(),
+                    col_right: ("DELIVERY ADDRESS: " + results.deliveryAddress_).toUpperCase()
+                });
+                tableTitleRows.push({
+                    col_left: ("JOB TYPE: " + results.jobType_).toUpperCase(),
+                    col_right: ("TRANSPORT MODE: " + results.transportMode_).toUpperCase()
+                });
+
+                // Initialize jsPDF 
+                var pdf_ = new jsPDF();
+
+                // Table 1
+                pdf_.autoTable({
+                    theme: 'plain',
+                    margin: { top: 20 },
+                    styles: {
+                        cellPadding: 2
+                    },
+                    showHead: 'firstPage',
+                    body: [{
+                        col: "PACKING LIST"
+                    },
+                    {
+                        col: "NO. " + tableMoveId
+                    }],
+                    didParseCell: function (data) {
+                        if (data.row.index === 0) {
+                            data.cell.styles.fontSize = 13;
+                            data.cell.styles.halign = 'center';
+                            data.cell.styles.fontStyle = 'bold';
+                            data.cell.styles.textColor = [155, 89, 182];
+                        }
+                    },
+                    didDrawPage: function (data) {
+                        var imagePosX = parseInt(pdf_.internal.pageSize.getWidth()) - 50;
+                        //126.99, 32.99
+                        pdf_.addImage(base64Logo, 'PNG', imagePosX, 10, 32.4975, 8.2475);
+                    }
+                });
+
+                // Table 2
+                pdf_.autoTable({
+                    theme: 'grid',
+                    margin: { top: 35 },
+                    styles: {
+                        cellPadding: 2,
+                        fontSize: 10
+                    },
+                    showHead: 'firstPage',
+                    body: tableTitleRows,
+                    startY: pdf_.autoTable.previous.finalY + 10,
+                });
+
+                // Table 3
+                pdf_.autoTable({
+                    theme: 'grid',
+                    styles: {
+                        overflow: 'linebreak',
+                        cellPadding: 2,
+                        fontSize: 8
+                    },
+                    head: self.listTableHeadRows(),
+                    body: self.listTableBodyRows(),
+                    startY: pdf_.autoTable.previous.finalY + 10,
+                    headStyles: { fillColor: [155, 89, 182], valign: 'middle' },
+                    didDrawPage: function (data) {
+                        pdf_.setFontSize(7);
+                        var pageSize = pdf_.internal.pageSize;
+                        var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+                        pdf_.text(tableFooterContent, data.settings.margin.left, pageHeight - 10);
+                    }
+                });
+
+                var confirmers = results.confirmers_;
+                if (typeof confirmers != 'undefined') {
+                    //The table with the signatures
+                    pdf_.autoTable({
+                        theme: 'plain',
+                        margin: { top: 20 },
+                        styles: {
+                            cellPadding: 1,
+                            fontSize: 8
+                        },
+                        startY: pdf_.autoTable.previous.finalY + 10,
+                        body: [
+                            {
+                                col_left: "MOVE CAPTAIN",
+                                col_right: "",
+                            },
+                            {
+                                col_left: confirmers.captain,
+                                col_right: confirmers.client,
+                            },
+                            {
+                                col_left: confirmers.signDate,
+                                col_right: confirmers.signDate
+                            },
+                            {
+                                col_left: "",
+                                col_right: "",
+                            }
+                        ],
+                        didParseCell: function (data) {
+                            if (data.column.dataKey === "col_right") {
+                                data.cell.styles.halign = 'right';
+                            }
+                        },
+                        didDrawCell: function (data) {
+                            if (data.row.index === 3 && data.column.dataKey === "col_left") {
+                                pdf_.addImage(confirmers.captainSign, 'PNG', data.cell.x, data.cell.y + 1, 15, 15);
+                            } else if (data.row.index === 3 && data.column.dataKey === "col_right") {
+                                var imagePosX = parseInt(pdf_.internal.pageSize.getWidth()) - 30;
+                                pdf_.addImage(confirmers.clientSign, 'PNG', imagePosX, data.cell.y + 1, 15, 15);
+                            }
+                        }
+                    });
+                }
+
+                var pageSize_ = pdf_.internal.pageSize;
+                var pageHeight_ = pageSize_.height ? pageSize_.height : pageSize_.getHeight();
+
+                pdf_.autoTable({
+                    theme: 'plain',
+                    margin: { top: 10 },
+                    styles: {
+                        cellPadding: 1,
+                        fontSize: 8
+                    },
+                    startY: pageHeight_ + 5,
+                    body: [
+                        {
+                            col_left: "AT DESTINATION",
+                            col_right: "",
+                        },
+                        {
+                            col_left: "",
+                            col_right: ""
+                        },
+                        {
+                            col_left: "MOVE CAPTAIN",
+                            col_right: "CLIENT/REPRESENTATIVE",
+                        },
+                        {
+                            col_left: "",
+                            col_right: ""
+                        },
+                        {
+                            col_left: "",
+                            col_right: ""
+                        },
+                        {
+                            col_left: "________________________",
+                            col_right: "________________________",
+                        },
+                        {
+                            col_left: "",
+                            col_right: ""
+                        },
+                        {
+                            col_left: "___________________",
+                            col_right: "___________________",
+                        }
+                    ],
+                    didParseCell: function (data) {
+                        if (data.row.index === 0) {
+                            data.cell.styles.fontSize = 9;
+                            data.cell.styles.fontStyle = 'bold';
+                            data.cell.styles.cellPadding = [1, 1, 2, 1];
+                        }
+                        if (data.column.dataKey === "col_right") {
+                            data.cell.styles.halign = 'right';
+                        }
+                    }
+                });
+
+                /* if not on browser */
+                if (typeof (cordova) == "object") {
+                    //var uristring = pdf_.output('blob');
+                    var uristringData = pdf_.output('datauristring');
+
+                    var uristring = uristringData.replace(";filename=generated.pdf", "");
+
+                    // Split the base64 string in data and contentType
+                    var block = uristring.split(";");
+                    // Get the content type
+                    var dataType = block[0].split(":")[1];// In this case "application/pdf"
+                    // get the real base64 content of the file
+                    var realData = block[1].split(",")[1];// In this case "JVBERi0xLjcKCjE...."
+
+                    // The path where the file will be created
+                    var folderpath = cordova.file.externalRootDirectory;
+                    // The name of the PDF
+                    var filename = tableMoveId + ".pdf";
+
+                    self.savebase64AsPDF(folderpath, filename, realData, dataType);
+
+                } else {
+                    pdf_.save(tableMoveId + '.pdf');
+                }
+
+                var _pdfDoc = pdf_.output('blob');
+
+                /* save this object to the client list */
+                db.get(self.clientId, function (err, doc) {
+                    if (err) {
+                        self.$app.toast.create({
+                            position: "center",
+                            text: "Error! " + err,
+                            closeTimeout: 2000,
+                        }).open();
+                        return;
+                    }
+
+                    var clientList = {
+                        _id: self.clientId,
+                        _rev: doc._rev,
+                        name_: doc.name_,
+                        email_: doc.email_,
+                        phone_: doc.phone_,
+                        moveId_: doc.moveId_,
+                        jobType_: doc.jobType_,
+                        transportMode_: doc.transportMode_,
+                        packingAddress_: doc.packingAddress_,
+                        deliveryAddress_: doc.deliveryAddress_,
+                        members_: doc.members_,
+                        packingListItems_: doc.packingListItems_,
+                        packingListItemCount_: doc.packingListItemCount_,
+                        confirmers_: doc.confirmers_,
+                        pdfDoc_: _pdfDoc
+                    };
+
+                    db.put(clientList, function (err, response) {
+                        if (err) {
+                            self.$app.toast.create({
+                                text: "Error! " + err,
+                                position: "center",
+                                closeTimeout: 2500,
+                            }).open();
+                        } else {
+                            self.$app.toast.create({
+                                text: "PDF Saved",
+                                position: "center",
+                                closeTimeout: 1500,
+                            }).open();
+                        }
+                    });
+                });
+
+            },
+            resetNewItemForm: function () {
+                var self = this;
+                var $$ = Dom7;
+                $$("#add-packinglist-item-form input").val("");
+                $$("#packinglist-item-condition-input").val("Normal");
+            },
+            resetEditItemForm: function () {
+                var self = this;
+                var $$ = Dom7;
+                $$("#edit-packinglist-item-form input").val("");
+                $$("#packinglist-item-condition-input-edit").val("Normal");
+            },
+            deletePackingListItem: function (index, realIndex) {
+                var self = this;
+                var $$ = Dom7;
+
+                db.get(self.clientId, function (err, doc) {
+                    if (err) {
+                        self.$app.toast.create({
+                            text: "Error! " + err,
+                            closeTimeout: 2000,
+                        }).open();
+                        return;
+                    }
+
+                    var ___packingListItems = [];
+
+                    doc.packingListItems_.splice(realIndex, 1);
+                    ___packingListItems = doc.packingListItems_;
+
+                    var clientList = {
+                        _id: self.clientId,
+                        _rev: doc._rev,
+                        name_: doc.name_,
+                        email_: doc.email_,
+                        phone_: doc.phone_,
+                        moveId_: doc.moveId_,
+                        jobType_: doc.jobType_,
+                        transportMode_: doc.transportMode_,
+                        packingAddress_: doc.packingAddress_,
+                        deliveryAddress_: doc.deliveryAddress_,
+                        members_: doc.members_,
+                        packingListItems_: ___packingListItems,
+                        packingListItemCount_: doc.packingListItemCount_,
+                        confirmers_: doc.confirmers_,
+                        pdfDoc_: doc.pdfDoc_
+                    };
+
+                    db.put(clientList, function (err, response) {
+                        if (err) {
+                            self.$app.toast.create({
+                                text: "Error! " + err,
+                                position: "center",
+                                closeTimeout: 1500,
+                            }).open();
+                        } else {
+                            self.virtualList.deleteItem(realIndex);
+                            self.getPackingListItems();
+                        }
+                    });
+                });
+            },
+            getPackingListItems: function () {
+                var self = this;
+                var $$ = Dom7;
+
+                db.get(self.clientId, (err, results) => {
+                    if (!err) {
+                        var packingListItems = results.packingListItems_;
+                        var packers_ = results.members_;
+                        if (typeof packers_ != 'undefined') {
+                            self.packers = packers_;
+                        }
+                        if (typeof packingListItems != 'undefined') {
+                            var txt = "";
+                            var data__ = [];
+                            self.packinglistItemCount = parseInt(results.packingListItemCount_) + 1;
+                            for (var i = 0; i < packingListItems.length; i++) {
+                                packingListItems[i].realIndex = i;
+                                data__.push(packingListItems[i]);
+                            }
+                            self.$app.ptr.done(".packlinglist-page");
+                            self.items = data__;
+                            self.clientData = results;
+                            self.virtualList.replaceAllItems(data__);
+                            self.virtualList.update();
+                        } else {
+                            self.packinglistItemCount = 1;
+                            self.$app.ptr.done(".packlinglist-page");
+                        }
+                    } else {
+                        self.$app.ptr.done(".packlinglist-page");
+                    }
+                });
+            }
+        },
+        on: {
+            pageBeforeRemove: function () {
+                var self = this;
+                self.newItemPopup.destroy();
+                self.virtualList.destroy();
+                self.actionsPopover.destroy();
+            },
+            pageInit: function () {
+                var self = this;
+                var $$ = Dom7;
+
+                /* New Item Popup Popup */
+                self.newItemPopup = self.$app.popup.create({
+                    el: '.new-packinglist-popup'
+                });
+
+                /* Edit Item Popup Popup */
+                self.editItemPopup = self.$app.popup.create({
+                    el: '.edit-packinglist-popup'
+                });
+
+                /* update list item number */
+                $$('.new-packinglist-popup').on('popup:open', function (e) {
+                    $$("#packinglist-item-number-input").val(self.packinglistItemCount);
+                });
+
+                /* actions popover */
+                self.actionsPopover = self.$app.popover.create({
+                    el: ".popover-action-links"
+                });
+
+                /* get cleints on pulled */
+                var $ptrContent_ = $$('.packlinglist-page');
+                // Add 'refresh' listener on it
+                $ptrContent_.on('ptr:refresh', function (e) {
+                    self.getPackingListItems();
+                });
+
+                self.virtualList = self.$app.virtualList.create({
+                    el: self.$el.find('.virtual-list-packinglist'),
+                    items: self.items,
+                    searchAll: function (query, items) {
+                        var found = [];
+                        for (var i = 0; i < items.length; i++) {
+                            if (items[i].packingListItemDescription.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+                        }
+                        return found;
+                    },
+                    renderItem: function (item) {
+                        var currentItemIndex = this.items.indexOf(item);
+                        var l = '<li class="swipeout">' +
+                            '<div class="item-content swipeout-content _packing-li-item">' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + item.packingListItemDescription + '</div>' +
+                            '<div class="item-after">#' + item.packingListNumber + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle"><strong>Packed By</strong> ' + item.packingListItemPacker + ' || <strong>Condition:</strong> ' + item.packingListItemCondition + '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="swipeout-actions-right">' +
+                            '<a href="#" class="color-green edit-packingist-item-action" data-p-description="' + item.packingListItemDescription + '" data-p-number="' + item.packingListNumber + '" data-p-packer="' + item.packingListItemPacker + '" data-p-condition="' + item.packingListItemCondition + '"  data-packinglist-item-index="' + currentItemIndex + '" data-packinglist-real-index="' + item.realIndex + '">Edit</a>' +
+                            '<a href="#" class="color-red delete-packingist-item-action" data-packinglist-item-index="' + currentItemIndex + '" data-packinglist-real-index="' + item.realIndex + '">Delete</a>' +
+                            '</div>' +
+                            '</li>';
+                        return l;
+                    },
+                    height: self.$theme.ios ? 63 : 73,
+                });
+                self.getPackingListItems();
+
+                /* setup description autocomplete list */
+                var autocompletePackinglistItemDescription = self.$app.autocomplete.create({
+                    inputEl: '#packinglist-item-description-input',
+                    openIn: 'dropdown',
+                    dropdownPlaceholderText: 'Try to type "Carton box with.."',
+                    typeahead: true,
+                    source: function (query, render) {
+                        var results = [];
+                        var items_ = [
+                            "Carton box with bowls",
+                            "Carton box with pots, pans, plastic containers",
+                            "Wooden crate with pictures",
+                            "Metallic box with books",
+                            "Small wooden cabinet",
+                            "Wooden stool",
+                            "Wooden Dinning cabinet",
+                            "Side bed tables",
+                            "Single mattress",
+                            "Coffee table",
+                            "Fridge",
+                            "Reading table",
+                            "Console table",
+                            "Chest of Drawers",
+                            "Dismantled bookshelf"
+                        ];
+                        for (var i = 0; i < items_.length; i++) {
+                            if (items_[i].toLowerCase().indexOf(query.toLowerCase()) >= 0) results.push(items_[i]);
+                        }
+                        render(results);
+                    }
+                });
+
+                /* setup description autocomplete list */
+                var autocompletePackinglistItemDescription2 = self.$app.autocomplete.create({
+                    inputEl: '#packinglist-item-description-input-edit',
+                    openIn: 'dropdown',
+                    dropdownPlaceholderText: 'Try to type "Carton box with.."',
+                    typeahead: true,
+                    source: function (query, render) {
+                        var results = [];
+                        var items_ = [
+                            "Carton box with bowls",
+                            "Carton box with pots, pans, plastic containers",
+                            "Wooden crate with pictures",
+                            "Metallic box with books",
+                            "Small wooden cabinet",
+                            "Wooden stool",
+                            "Wooden Dinning cabinet",
+                            "Side bed tables",
+                            "Single mattress",
+                            "Coffee table",
+                            "Fridge",
+                            "Reading table",
+                            "Console table",
+                            "Chest of Drawers",
+                            "Dismantled bookshelf"
+                        ];
+                        for (var i = 0; i < items_.length; i++) {
+                            if (items_[i].toLowerCase().indexOf(query.toLowerCase()) >= 0) results.push(items_[i]);
+                        }
+                        render(results);
+                    }
+                });
+
+                /* setup members autocomplete list */
+                var autocompletePackinglistItemMembers = self.$app.autocomplete.create({
+                    inputEl: '#packinglist-item-packer-input',
+                    openIn: 'dropdown',
+                    dropdownPlaceholderText: 'Try to type a name...',
+                    typeahead: true,
+                    source: function (query, render) {
+                        var results = [];
+                        var items_ = self.packers;
+                        for (var i = 0; i < items_.length; i++) {
+                            var name = items_[i].crewName;
+                            if (name.toLowerCase().indexOf(query.toLowerCase()) >= 0) results.push(name);
+                        }
+                        render(results);
+                    }
+                });
+
+                /* setup members 2 autocomplete list */
+                var autocompletePackinglistItemMembers2 = self.$app.autocomplete.create({
+                    inputEl: '#packinglist-item-packer-input-edit',
+                    openIn: 'dropdown',
+                    dropdownPlaceholderText: 'Try to type a name...',
+                    typeahead: true,
+                    source: function (query, render) {
+                        var results = [];
+                        var items_ = self.packers;
+                        for (var i = 0; i < items_.length; i++) {
+                            var name = items_[i].crewName;
+                            if (name.toLowerCase().indexOf(query.toLowerCase()) >= 0) results.push(name);
+                        }
+                        render(results);
+                    }
+                });
+
+                /* New Item form submitted */
+                $$(".add-packinglist-item").on("click", function (e) {
+                    e.preventDefault();
+
+                    var thisButton = $$(this);
+
+                    var p_number = $$("#packinglist-item-number-input").val();
+                    var p_description = $$("#packinglist-item-description-input").val();
+                    var p_condition = $$("#packinglist-item-condition-input").val();
+                    var p_packer = $$("#packinglist-item-packer-input").val();
+
+                    var newPackingListItem = {
+                        packingListItemId: new Date().toISOString(),
+                        packingListNumber: p_number,
+                        packingListItemDescription: p_description,
+                        packingListItemCondition: p_condition,
+                        packingListItemPacker: p_packer
+                    };
+
+                    if (p_number == "" || p_description == "" || p_condition == "" || p_packer == "") {
+                        self.$app.toast.create({
+                            text: "Some fields are missing!",
+                            position: "center",
+                            closeTimeout: 2000,
+                        }).open();
+                        return;
+                    }
+
+                    db.get(self.clientId, function (err, doc) {
+                        if (err) {
+                            self.$app.toast.create({
+                                text: "Error! " + err,
+                                position: "center",
+                                closeTimeout: 2000,
+                            }).open();
+                            return;
+                        }
+
+                        var __packingListItems = [];
+                        var __packingListItemCount = 0;
+
+                        if (doc.hasOwnProperty('packingListItems_')) {
+                            doc.packingListItems_.push(newPackingListItem);
+                            __packingListItems = doc.packingListItems_;
+                            __packingListItemCount = parseInt(doc.packingListItemCount_) + 1;
+                        } else {
+                            __packingListItems.push(newPackingListItem);
+                            __packingListItemCount = 1;
+                        }
+
+                        var clientList = {
+                            _id: self.clientId,
+                            _rev: doc._rev,
+                            name_: doc.name_,
+                            email_: doc.email_,
+                            phone_: doc.phone_,
+                            moveId_: doc.moveId_,
+                            jobType_: doc.jobType_,
+                            transportMode_: doc.transportMode_,
+                            packingAddress_: doc.packingAddress_,
+                            deliveryAddress_: doc.deliveryAddress_,
+                            members_: doc.members_,
+                            packingListItems_: __packingListItems,
+                            packingListItemCount_: __packingListItemCount,
+                            confirmers_: doc.confirmers_,
+                            pdfDoc: doc.pdfDoc_
+                        };
+
+                        db.put(clientList, function (err, response) {
+                            if (err) {
+                                self.$app.toast.create({
+                                    text: "Error! " + err,
+                                    position: "center",
+                                    closeTimeout: 1500,
+                                }).open();
+                            } else {
+                                self.$app.toast.create({
+                                    text: "Item Added",
+                                    position: "center",
+                                    closeTimeout: 1500,
+                                }).open();
+                                self.resetNewItemForm();
+                                self.getPackingListItems();
+
+                                if (thisButton.hasClass("plus-new")) {
+                                    $$("#packinglist-item-number-input").val(++__packingListItemCount);
+                                } else {
+                                    self.newItemPopup.close();
+                                }
+                            }
+                        });
+                    });
+                });
+
+                /* Swipe del call callback */
+                $$('[data-el-page="list"]').on('click', '.delete-packingist-item-action', function (e) {
+                    e.preventDefault();
+                    var packingListItemIndex = $$(this).attr("data-packinglist-item-index");
+                    var packingListRealIndex = $$(this).attr("data-packinglist-real-index");
+                    if (typeof self.$app == 'undefined') {
+                        return;
+                    }
+                    self.$app.dialog.confirm('Are you sure you to delete this item?', null, function () {
+                        self.deletePackingListItem(packingListItemIndex, packingListRealIndex);
+                    });
+                });
+
+                /* Swipe edit list item call callback */
+                $$('[data-el-page="list"]').on('click', '.edit-packingist-item-action', function (e) {
+                    e.preventDefault();
+                    var packingListItemIndex = $$(this).attr("data-packinglist-item-index");
+                    var packingListRealIndex = $$(this).attr("data-packinglist-real-index");
+
+                    $$("#packinglist-item-index-input-edit").val(packingListRealIndex);
+
+                    $$("#packinglist-item-number-input-edit").val($$(this).attr("data-p-number"));
+                    $$("#packinglist-item-description-input-edit").val($$(this).attr("data-p-description"));
+                    $$("#packinglist-item-condition-input-edit").val($$(this).attr("data-p-condition"));
+                    $$("#packinglist-item-packer-input-edit").val($$(this).attr("data-p-packer"));
+
+                    if (typeof self.editItemPopup !== 'undefined') {
+                        self.editItemPopup.open();
+                    }
+                });
+
+                /* Edit Item form submitted */
+                $$(".edit-packinglist-item").on("click", function (e) {
+                    e.preventDefault();
+
+                    var realIndex = $("#packinglist-item-index-input-edit").val();
+                    var p_id = $("#packinglist-item-id-input-edit").val();
+                    var p_number = $("#packinglist-item-number-input-edit").val();
+                    var p_description = $("#packinglist-item-description-input-edit").val();
+                    var p_condition = $("#packinglist-item-condition-input-edit").val();
+                    var p_packer = $("#packinglist-item-packer-input-edit").val();
+
+                    var newPackingListItem = {
+                        packingListItemId: p_id,
+                        packingListNumber: p_number,
+                        packingListItemDescription: p_description,
+                        packingListItemCondition: p_condition,
+                        packingListItemPacker: p_packer
+                    };
+
+                    if (p_number == "" || p_description == "" || p_condition == "" || p_packer == "") {
+                        self.$app.toast.create({
+                            text: "Some fields are missing!",
+                            position: "center",
+                            closeTimeout: 2000,
+                        }).open();
+                        return;
+                    }
+
+                    /* starts here */
+                    db.get(self.clientId, function (err, doc) {
+                        if (err) {
+                            self.$app.toast.create({
+                                text: "Error! " + err,
+                                closeTimeout: 2000,
+                            }).open();
+                            return;
+                        }
+
+                        var ___packingListItems = [];
+
+                        doc.packingListItems_[realIndex] = newPackingListItem;
+                        ___packingListItems = doc.packingListItems_;
+
+                        var clientList = {
+                            _id: self.clientId,
+                            _rev: doc._rev,
+                            name_: doc.name_,
+                            email_: doc.email_,
+                            phone_: doc.phone_,
+                            moveId_: doc.moveId_,
+                            jobType_: doc.jobType_,
+                            transportMode_: doc.transportMode_,
+                            packingAddress_: doc.packingAddress_,
+                            deliveryAddress_: doc.deliveryAddress_,
+                            members_: doc.members_,
+                            packingListItems_: ___packingListItems,
+                            packingListItemCount_: doc.packingListItemCount_,
+                            confirmers_: doc.confirmers_,
+                            pdfDoc_: doc.pdfDoc_
+                        };
+
+                        db.put(clientList, function (err, response) {
+                            if (err) {
+                                self.$app.toast.create({
+                                    text: "Error! " + err,
+                                    position: "center",
+                                    closeTimeout: 3000,
+                                }).open();
+                            } else {
+                                self.getPackingListItems();
+                                self.resetEditItemForm();
+                                self.editItemPopup.close();
+                            }
+                        });
+                    });
+                    /* ends here */
+
+                });
+
+                /* action links */
+                $$("#goto-client-signature").on("click", function (e) {
+                    e.preventDefault();
+                    mainView.router.navigate('/client/' + self.clientId + '/' + self.clientRev + '');
+                });
+
+                /* action links */
+                $$("#goto-preview").on("click", function (e) {
+                    e.preventDefault();
+                    self.listTableGeneratePDF();
+                });
+
+            }
+        }
+    }
+</script>

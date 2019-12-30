@@ -1,0 +1,224 @@
+<template>
+    <div class="page" data-el-page="sign">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span class="if-not-md">Back</span>
+                    </a>
+                </div>
+
+                <div class="title">{{appName}}</div>
+
+            </div>
+        </div>
+
+        <div class="searchbar-backdrop"></div>
+
+        <div class="page-content client-confirm-page">
+
+            <div class="list inset no-hairlines-md">
+                <form id="client-confirm-form">
+                    <ul>
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-input-wrap">
+                                    <input type="text" placeholder="Captain Name" id="captain-confirm-input">
+                                    <span class="input-clear-button"></span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <p>Team Captain Signature</p>
+                    <div class="signature-wrapper">
+                        <canvas id="captain-signature"></canvas>
+                        <div>
+                            <button type="button" style="color: #fff;"
+                                class="button button-fill color-black button-raised"
+                                id="clear-captain-pad">Clear</button>
+                        </div>
+                    </div>
+                    <div>
+                        <p>I/We have checked the items on this inventory and acknowledged that this is a
+                            true and complete list of the items handed over to Nellions Moving and
+                            Relocations.</p>
+                    </div>
+                    <ul>
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-input-wrap">
+                                    <input type="text" placeholder="Client/Representative Name"
+                                        id="client-confirm-input">
+                                    <span class="input-clear-button"></span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <p>Client Signature</p>
+                    <div class="signature-wrapper">
+                        <canvas id="client-signature"></canvas>
+                        <div>
+                            <button type="button" style="color: #fff;"
+                                class="button button-fill color-black button-raised"
+                                id="clear-client-pad">Clear</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="block">
+                <p class="row">
+                    <button class="col button button-fill button-raised" id="add-confirmation-btn">Done</button>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</template>
+
+<script>
+    return {
+        data: function () {
+            items = [];
+            return {
+                appName: "Signatures",
+                clientId: this.$route.params.id,
+                clientRev: this.$route.params.rev
+            };
+        },
+        methods: {
+            getCurrentDate: function () {
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = today.getFullYear();
+
+                today = mm + '/' + dd + '/' + yyyy;
+                return today;
+            },
+            getConfirmItems: function (captainPad, clientPad) {
+                var self = this;
+                var $$ = Dom7;
+                db.get(this.clientId, (err, results) => {
+                    if (!err) {
+                        var confirmers = results.confirmers_;
+                        if (typeof confirmers != 'undefined') {
+                            $$("#captain-confirm-input").val(confirmers.captain);
+                            $$("#client-confirm-input").val(confirmers.client);
+
+                            captainPad.fromDataURL(confirmers.captainSign);
+                            clientPad.fromDataURL(confirmers.clientSign);
+                        }
+                    }
+                });
+            }
+        },
+        on: {
+            pageBeforeRemove: function () {
+                var self = this;
+            },
+            pageInit: function () {
+                var self = this;
+                var $$ = Dom7;
+
+                var captainSignature = document.getElementById("captain-signature");
+                var clientSignature = document.getElementById("client-signature");
+
+                var captainPad = new SignaturePad(captainSignature);
+                var clientPad = new SignaturePad(clientSignature);
+
+                /* clear captain pad */
+                $$("#clear-captain-pad").on("click", function (e) {
+                    captainPad.clear();
+                });
+
+                /* clear client pad */
+                $$("#clear-client-pad").on("click", function (e) {
+                    clientPad.clear();
+                });
+
+                /* get client items */
+                self.getConfirmItems(captainPad, clientPad);
+
+                /* form submitted */
+                $$("#add-confirmation-btn").on("click", function (e) {
+                    e.preventDefault();
+
+                    var captain = $$("#captain-confirm-input").val();
+                    var client = $$("#client-confirm-input").val();
+
+                    var theCaptainSign = captainSignature.toDataURL();
+                    var theClientSign = clientSignature.toDataURL();
+
+                    if (typeof self.getCurrentDate == 'undefined') {
+                        return;
+                    }
+
+                    var newConfirmers = {
+                        captain: captain.toUpperCase(),
+                        client: client.toUpperCase(),
+                        signDate: self.getCurrentDate(),
+                        captainSign: theCaptainSign,
+                        clientSign: theClientSign
+                    };
+
+                    if (captain == "" || client == "") {
+                        self.$app.toast.create({
+                            text: "Some fields are missing!",
+                            closeTimeout: 2000,
+                        }).open();
+                        return;
+                    }
+
+                    console.log(self.clientId);
+                    db.get(self.clientId, function (err, doc) {
+                        if (err) {
+                            self.$app.toast.create({
+                                position: "center",
+                                text: "Error 1 " + err,
+                                closeTimeout: 2000,
+                            }).open();
+                            return;
+                        }
+
+                        var clientList = {
+                            _id: self.clientId,
+                            _rev: doc._rev,
+                            name_: doc.name_,
+                            email_: doc.email_,
+                            phone_: doc.phone_,
+                            moveId_: doc.moveId_,
+                            jobType_: doc.jobType_,
+                            transportMode_: doc.transportMode_,
+                            packingAddress_: doc.packingAddress_,
+                            deliveryAddress_: doc.deliveryAddress_,
+                            members_: doc.members_,
+                            packingListItems_: doc.packingListItems_,
+                            packingListItemCount_: doc.packingListItemCount_,
+                            confirmers_: newConfirmers,
+                            pdfDoc_: doc.pdfDoc_
+                        };
+
+                        db.put(clientList, function (err, response) {
+                            if (err) {
+                                self.$app.toast.create({
+                                    text: "Error 2 " + err,
+                                    position: "center",
+                                    closeTimeout: 2500,
+                                }).open();
+                            } else {
+                                self.$app.toast.create({
+                                    text: "Added",
+                                    position: "center",
+                                    closeTimeout: 1500,
+                                }).open();
+                            }
+                        });
+                    });
+
+                });
+            }
+        }
+    }
+</script>

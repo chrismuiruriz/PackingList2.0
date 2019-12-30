@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+    content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1,width=device-width, height=device-height, target-densitydpi=device-dpi" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#7D1754">
+  <title>Nellions Packing List 2.0</title>
+  <link rel="stylesheet" href="css/framework7.bundle.min5.2.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="apple-touch-icon" href="img/f7-icon-square.png">
+  <link rel="icon" href="img/f7-icon.png">
+
+  <style>
+    .crew-page:after {
+      content: "Crew";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-size: 2em;
+      opacity: 0.2;
+      transform: translateX(-50%) translateY(-50%);
+    }
+
+    .packlinglist-page:after {
+      content: "Packing List";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-size: 2em;
+      opacity: 0.2;
+      transform: translateX(-50%) translateY(-50%);
+    }
+
+    .list .item-title {
+      text-transform: capitalize;
+    }
+
+    .list-media-item {
+      width: 45px;
+      height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body class="color-theme-purple">
+  <div id="app" class="theme-dark">
+    <div class="view view-main">
+    </div>
+  </div>
+
+  <script src="cordova.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+  <script type="text/javascript">
+      phonegapApp.initialize();
+  </script>
+  <script src="js/5.2/framework7.bundle.min.js"></script>
+  <script src="js/pouchdb-7.1.1.min.js"></script>
+  <script src="js/jspdf.min.js"></script>
+  <script src="js/jspdf.plugin.autotable.js"></script>
+  <script src="js/signature_pad.min.js"></script>
+  <script src="js/routes.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

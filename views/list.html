@@ -477,6 +477,12 @@
                     body: self.listTableBodyRows(),
                     startY: pdf_.autoTable.previous.finalY + 10,
                     headStyles: { fillColor: [155, 89, 182], valign: 'middle' },
+                    didParseCell: function (data) {
+                        if (data.column.dataKey === "number") {
+                            data.cell.styles.minCellWidth = 13;
+                            data.cell.styles.halign = 'center';
+                        }
+                    },
                     didDrawPage: function (data) {
                         pdf_.setFontSize(7);
                         var pageSize = pdf_.internal.pageSize;

@@ -10,7 +10,7 @@
 		Code Moran CL
 	</author>
 	<preference name="pgb-builder-version" value="2" />
-	<preference name="phonegap-version" value="cli-8.0.0" />
+	<preference name="phonegap-version" value="cli-9.0.0" />
 	<framework src="com.android.support:support-v4:27.1.0" />
 	<icon src="icon.png" />
 	<content src="index.html" />

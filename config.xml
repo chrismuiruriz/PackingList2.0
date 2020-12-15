@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget id="ug.nellions.packinglist" version="2.2.6" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<widget id="ug.nellions.packinglist" version="2.2.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
 	<name>
-		Packing List 2.2.6 - UG
+		Packing List 2.2.7 - UG
 	</name>
 	<description>
-		Packing List 2.2.6
+		Packing List 2.2.7
 	</description>
 	<author email="chrismuiruri007@gmail.com" href="http://cordova.io">
 		Code Moran CL
@@ -25,6 +25,8 @@
 	<plugin name="cordova-plugin-splashscreen" />
 	<!-- <plugin name="cordova-plugin-privacyscreen" /> -->
 	<plugin name="cordova-plugin-file-opener2" />
+
+	<preference name="AndroidPersistentFileLocation" value="Compatibility" />
 
 	<gap:config-file platform="android" parent="/manifest">
 		<application android:debuggable="true" />

@@ -343,9 +343,9 @@
 
                 window.resolveLocalFileSystemURL(folderpath, function (dir) {
                     window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function (dirEntry) {
-                        self.$app.preloader.hide();
                         dir.copyTo(dirEntry, filename, function (newFileEntry) {
-                            cordova.plugins.fileOpener2.open(newFileEntry.nativeURL, 'application/pdf');
+                            self.$app.preloader.hide();
+                            window.open(newFileEntry.nativeURL, '_system');
                         });
                     });
                     // dir.getFile(filename, { create: true }, function (file) {

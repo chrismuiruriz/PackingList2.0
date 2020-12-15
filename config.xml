@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget id="ug.nellions.packinglist" version="2.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="ug.nellions.packinglist" version="2.2.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
 	<name>
 		Packing List 2.0 - UG
 	</name>
@@ -14,7 +14,7 @@
 	<framework src="com.android.support:support-v4:27.1.0" />
 	<icon src="icon.png" />
 	<content src="index.html" />
-	<!-- <plugin name="cordova-plugin-whitelist" /> -->
+	<plugin name="cordova-plugin-whitelist" />
 	<!-- Do not auto hide splash on iOS -->
 	<preference name="AutoHideSplashScreen" value="false" />
 	<!-- Do not auto hide splash on Android -->
@@ -23,7 +23,7 @@
 	<plugin name="cordova-plugin-inappbrowser" />
 	<plugin name="cordova-plugin-file" />
 	<plugin name="cordova-plugin-splashscreen" />
-	<plugin name="cordova-plugin-privacyscreen" />
+	<!-- <plugin name="cordova-plugin-privacyscreen" /> -->
 	<plugin name="cordova-plugin-file-opener2" />
 
     <access origin="*" />

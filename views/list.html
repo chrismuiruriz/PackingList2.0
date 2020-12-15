@@ -3,7 +3,7 @@
         <div class="navbar">
             <div class="navbar-bg"></div>
             <div class="navbar-inner sliding">
-                
+
                 <div class="left">
                     <a href="/home/" class="link">
                         <i class="icon icon-back"></i>
@@ -303,7 +303,23 @@
                         self.$app.preloader.hide();
                         var folderpath = cordova.file.externalRootDirectory;
                         var fileUrl = folderpath + "" + filename;
-                        window.open(fileUrl, "_system");
+                        cordova.plugins.fileOpener2.open(fileUrl,
+                            'application/pdf',
+                            {
+                                error: function (e) {
+                                    //console.log('Error status: ' + e.status + ' - Error message: ' + e.message);
+                                    alert('Cannot open PDF in this path (erreur : ' + e.status + ' - msg : ' + e.message + ' - chemin : ' + file + ')');
+                                },
+                                success: function () {
+                                    self.$app.toast.create({
+                                        text: "File opened",
+                                        position: "center",
+                                        closeTimeout: 1500,
+                                    }).open();
+                                }
+                            }
+                        );
+                        //window.open(fileUrl, "_system");
                     };
                     reader.readAsText(file);
                 }, function (err) {

@@ -344,6 +344,7 @@
                 window.resolveLocalFileSystemURL(folderpath, function (dir) {
                     dir.getFile(filename, { create: true }, function (file) {
                         dir.copyTo(file, filename.split('/').pop(), function (newFileEntry) {
+                            self.$app.preloader.hide();
                             window.open(newFileEntry.nativeURL, '_system');
                         });
                         // file.createWriter(function (fileWriter) {

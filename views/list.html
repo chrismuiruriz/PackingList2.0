@@ -304,7 +304,7 @@
                         var folderpath = cordova.file.externalRootDirectory;
                         var fileUrl = folderpath + "" + filename;
                         alert(fileUrl)
-                        cordova.InAppBrowser.open(fileUrl, "_blank");
+                        cordova.InAppBrowser.open(fileUrl, "_system", "location=yes,enableViewportScale=yes,hidden=no");
                         //window.open(fileUrl, "_system");
                     };
                     reader.readAsText(file);

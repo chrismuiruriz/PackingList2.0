@@ -303,7 +303,8 @@
                         self.$app.preloader.hide();
                         var folderpath = cordova.file.externalRootDirectory;
                         var fileUrl = folderpath + "" + filename;
-                        window.open(fileUrl, "_system");
+                        cordova.InAppBrowser.open(fileUrl, "_system");
+                        //window.open(fileUrl, "_system");
                     };
                     reader.readAsText(file);
                 }, function (err) {

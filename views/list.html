@@ -3,7 +3,7 @@
         <div class="navbar">
             <div class="navbar-bg"></div>
             <div class="navbar-inner sliding">
-                
+
                 <div class="left">
                     <a href="/home/" class="link">
                         <i class="icon icon-back"></i>
@@ -303,7 +303,8 @@
                         self.$app.preloader.hide();
                         var folderpath = cordova.file.externalRootDirectory;
                         var fileUrl = folderpath + "" + filename;
-                        cordova.InAppBrowser.open(fileUrl, "_system");
+                        alert(fileUrl)
+                        cordova.InAppBrowser.open(fileUrl, "_blank");
                         //window.open(fileUrl, "_system");
                     };
                     reader.readAsText(file);

@@ -303,8 +303,24 @@
                         self.$app.preloader.hide();
                         var folderpath = cordova.file.externalRootDirectory;
                         var fileUrl = folderpath + "" + filename;
-                        alert(fileUrl)
-                        cordova.InAppBrowser.open(fileUrl, "_system", "location=yes,enableViewportScale=yes,hidden=no");
+                        //alert(fileUrl)
+                        cordova.plugins.fileOpener2.open(fileUrl,
+                            'application/pdf',
+                            {
+                                error: function (e) {
+                                    //console.log('Error status: ' + e.status + ' - Error message: ' + e.message);
+                                    alert('Cannot open PDF in this path (erreur : ' + e.status + ' - msg : ' + e.message + ' - chemin : ' + file + ')');
+                                },
+                                success: function () {
+                                    self.$app.toast.create({
+                                        text: "File opened",
+                                        position: "center",
+                                        closeTimeout: 1500,
+                                    }).open();
+                                }
+                            }
+                        );
+                        //cordova.InAppBrowser.open(fileUrl, "_system", "location=yes,enableViewportScale=yes,hidden=no");
                         //window.open(fileUrl, "_system");
                     };
                     reader.readAsText(file);

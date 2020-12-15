@@ -343,15 +343,18 @@
 
                 window.resolveLocalFileSystemURL(folderpath, function (dir) {
                     dir.getFile(filename, { create: true }, function (file) {
-                        file.createWriter(function (fileWriter) {
-                            fileWriter.onwriteend = function () {
-                                self.readFile(file, filename);
-                            };
-                            fileWriter.write(DataBlob);
-                        }, function () {
-                            self.$app.preloader.hide();
-                            alert('Unable to save file in path ' + folderpath);
+                        dir.copyTo(file, filename.split('/').pop(), function (newFileEntry) {
+                            window.open(newFileEntry.nativeURL, '_system');
                         });
+                        // file.createWriter(function (fileWriter) {
+                        //     fileWriter.onwriteend = function () {
+                        //         self.readFile(file, filename);
+                        //     };
+                        //     fileWriter.write(DataBlob);
+                        // }, function () {
+                        //     self.$app.preloader.hide();
+                        //     alert('Unable to save file in path ' + folderpath);
+                        // });
                     });
                 });
             },

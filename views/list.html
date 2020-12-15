@@ -342,21 +342,23 @@
                 self.$app.preloader.show('Generating Preview...');
 
                 window.resolveLocalFileSystemURL(folderpath, function (dir) {
-                    dir.getFile(filename, { create: true }, function (file) {
-                        dir.copyTo(file, filename.split('/').pop(), function (newFileEntry) {
-                            self.$app.preloader.hide();
-                            window.open(newFileEntry.nativeURL, '_system');
+                    window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function (dirEntry) {
+                        self.$app.preloader.hide();
+                        dir.copyTo(dirEntry, filename, function (newFileEntry) {
+                            cordova.plugins.fileOpener2.open(newFileEntry.nativeURL, 'application/pdf');
                         });
-                        // file.createWriter(function (fileWriter) {
-                        //     fileWriter.onwriteend = function () {
-                        //         self.readFile(file, filename);
-                        //     };
-                        //     fileWriter.write(DataBlob);
-                        // }, function () {
-                        //     self.$app.preloader.hide();
-                        //     alert('Unable to save file in path ' + folderpath);
-                        // });
                     });
+                    // dir.getFile(filename, { create: true }, function (file) {
+                    //     file.createWriter(function (fileWriter) {
+                    //         fileWriter.onwriteend = function () {
+                    //             self.readFile(file, filename);
+                    //         };
+                    //         fileWriter.write(DataBlob);
+                    //     }, function () {
+                    //         self.$app.preloader.hide();
+                    //         alert('Unable to save file in path ' + folderpath);
+                    //     });
+                    // });
                 });
             },
             getCurrentDate: function () {
